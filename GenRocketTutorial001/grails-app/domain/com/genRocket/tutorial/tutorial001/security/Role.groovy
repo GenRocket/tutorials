@@ -1,4 +1,4 @@
-package genrockettutorial001.security
+package com.genRocket.tutorial.tutorial001.security
 
 class Role {
   String authority

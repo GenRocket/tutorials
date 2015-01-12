@@ -1,4 +1,4 @@
-package genrockettutorial001
+package com.genRocket.tutorial.tutorial001
 
 class Address {
   String addressType

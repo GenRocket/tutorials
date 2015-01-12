@@ -1,4 +1,6 @@
-package genrockettutorial001.security
+package com.genRocket.tutorial.tutorial001.security
+
+import com.genRocket.tutorial.tutorial001.Organization
 
 class User {
   transient springSecurityService
@@ -23,7 +25,12 @@ class User {
       'springSecurityService'
   ]
 
+  static belongsTo = [
+      organization: Organization
+  ]
+
   static constraints = {
+    organization nullable: false
     firstName nullable: false, maxSize: 50, blank: false, unique: false
     lastName nullable: false, maxSize: 50, blank: false, unique: false
     emailAddress nullable: false, maxSize: 100, blank: false

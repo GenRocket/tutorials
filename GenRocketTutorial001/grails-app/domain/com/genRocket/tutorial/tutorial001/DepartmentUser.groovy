@@ -1,6 +1,6 @@
-package genrockettutorial001
+package com.genRocket.tutorial.tutorial001
 
-import genrockettutorial001.security.User
+import com.genRocket.tutorial.tutorial001.security.User
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 class DepartmentUser implements Serializable {

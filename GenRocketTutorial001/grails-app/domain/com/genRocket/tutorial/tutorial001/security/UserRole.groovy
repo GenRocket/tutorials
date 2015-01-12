@@ -1,6 +1,6 @@
-package genrockettutorial001.security
+package com.genRocket.tutorial.tutorial001.security
 
-import genrockettutorial001.Organization
+import com.genRocket.tutorial.tutorial001.Organization
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 class UserRole implements Serializable {
