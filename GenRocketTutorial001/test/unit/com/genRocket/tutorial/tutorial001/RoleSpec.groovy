@@ -1,6 +1,6 @@
-package genrockettutorial001
+package com.genRocket.tutorial.tutorial001
 
-import genrockettutorial001.security.Role
+import com.genRocket.tutorial.tutorial001.security.Role
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
