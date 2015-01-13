@@ -1,5 +1,7 @@
 package com.genRocket.tutorial.tutorial001.security
 
+import com.genRocket.tutorial.tutorial001.Department
+import com.genRocket.tutorial.tutorial001.DepartmentUser
 import com.genRocket.tutorial.tutorial001.Organization
 
 class User {
@@ -54,6 +56,10 @@ class User {
 
   Set<Role> getAuthorities() {
     UserRole.findAllByUser(this).collect { it.role }
+  }
+
+  Set<Department> getDepartments() {
+    DepartmentUser.findAllByUser(this).collect { it.department } as Set
   }
 
   def beforeInsert() {
