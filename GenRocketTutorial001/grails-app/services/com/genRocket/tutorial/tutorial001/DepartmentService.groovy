@@ -28,7 +28,7 @@ class DepartmentService {
     }
 
     if (user.id) {
-      userService.add(user, address, department)
+      userService.add(department, user, address)
     } else {
       def source = DepartmentUser.findByUser(user).department
       def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
