@@ -7,6 +7,7 @@ import grails.transaction.Transactional
 
 @Transactional
 class UserService {
+  def addressService
 
   def add(User user, Address address, Department department) {
     def organization = department.organization
@@ -30,15 +31,9 @@ class UserService {
       throw new Exception('Unable to save user.  Please check that all required attributes are entered.')
     }
 
+    addressService.add(user, address)
+
     UserRole.create(user, Role.findByAuthority(RoleTypes.ROLE_USER.toString()), organization)
-
-    address.save()
-
-    if (address.hasErrors()) {
-      throw new Exception('Unable to save address. Please check that all required attributes are entered.')
-    }
-
-    UserAddress.create(address, user)
     DepartmentUser.create(department, user)
 
     // need if check...
