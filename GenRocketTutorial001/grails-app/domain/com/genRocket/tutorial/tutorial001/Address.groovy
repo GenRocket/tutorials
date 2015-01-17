@@ -6,7 +6,7 @@ class Address {
   String addressTwo
   String city
   String state
-  String zip
+  String zipCode
   Boolean active = true
 
   static constraints = {
@@ -15,7 +15,7 @@ class Address {
     addressTwo nullable: false, blank: fale, maxSize: 50
     city nullable: false, blank: fale, maxSize: 35
     state nullable: false, blank: fale, maxSize: 2
-    zip nullable: false, blank: fale, maxSize: 10
+    zipCode nullable: false, blank: fale, maxSize: 10
     active nullable: false
   }
 }
