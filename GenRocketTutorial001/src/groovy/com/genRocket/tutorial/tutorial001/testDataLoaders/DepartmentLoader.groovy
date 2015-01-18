@@ -19,13 +19,11 @@ class DepartmentLoader extends TestDataLoaderBase {
 
     organizations.each { node ->
       def dto = new LoaderDTO()
+      def department = new Department(node)
       def user = new User(node)
-
       def address = new Address(node)
-      address.addressOne = node.address
 
-      def department = new Department()
-      department.name = node.departmentName
+      address.addressOne = node.address
 
       def map = [department: department, user: user, address: address]
 
