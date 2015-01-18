@@ -9,7 +9,7 @@ import com.genRocket.tutorial.tutorial001.testDataLoaders.RoleLoader
 class RoleTestDataService {
   static transactional = true
 
-  def roleSer
+  def roleService
 
   def loadData() {
     println "Loading Roles..."
@@ -18,9 +18,9 @@ class RoleTestDataService {
       def roles = (LoaderDTO[]) RoleLoader.load()
 
       roles.each { node ->
-        def attribute = (Role) node.object
+        def role = (Role) node.object
 
-        roleSer.save(attribute)
+        roleService.create(role)
       }
     }
   }
