@@ -6,9 +6,9 @@ import grails.transaction.Transactional
 @Transactional
 class AddressService {
 
-  def update(User user, Address address) {
-    if (!address.id) {
-      throw new Exception("A new address must be created the Department Service workflow only.")
+  def create(User user, Address address) {
+    if (!user.id) {
+      throw new Exception("User does not have an Id.")
     }
 
     address.save()
