@@ -43,7 +43,7 @@ class DepartmentService {
 
   def move(User user, Department source, Department dest) {
     def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
-    def count = getUsers(source, role).size()
+    def count = userService.getUsersWithRole(source, role).size()
 
     if (count == 0) {
       def message = """
@@ -55,18 +55,5 @@ class DepartmentService {
 
     DepartmentUser.remove(source, user)
     DepartmentUser.create(dest, user)
-  }
-
-  def getUsers(Department department, Role role) {
-    return User.withCriteria {
-      authorities {
-        eq('authority': role.authority)
-
-      }
-
-      departments {
-        eq('id': department.id)
-      }
-    }
   }
 }
