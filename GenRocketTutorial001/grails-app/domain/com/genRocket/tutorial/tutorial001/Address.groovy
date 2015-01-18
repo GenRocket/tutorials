@@ -10,12 +10,12 @@ class Address {
   Boolean active = true
 
   static constraints = {
-    addressType nullable: false, blank: fale, maxSize: 10
-    addressOne nullable: false, blank: fale, maxSize: 50
-    addressTwo nullable: false, blank: fale, maxSize: 50
-    city nullable: false, blank: fale, maxSize: 35
-    state nullable: false, blank: fale, maxSize: 2
-    zipCode nullable: false, blank: fale, maxSize: 10
+    addressType nullable: false, blank: false, maxSize: 10
+    addressOne nullable: false, blank: false, maxSize: 50
+    addressTwo nullable: true, blank: false, maxSize: 50
+    city nullable: false, blank: false, maxSize: 35
+    state nullable: false, blank: false, maxSize: 2
+    zipCode nullable: false, blank: false, maxSize: 10
     active nullable: false
   }
 }
