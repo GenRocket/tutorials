@@ -43,6 +43,22 @@ class UserService {
     }
   }
 
+  def move(User user, Department source, Department dest) {
+    def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
+    def count = getUsersWithRole(source, role).size()
+
+    if (count == 0) {
+      def message = """
+        User ${user.username} cannot be moved because department ${source.name} has no other users with role ${RoleTypes.ROLE_DEPT_ADMIN.toString()}...
+      """
+
+      throw new Exception(message)
+    }
+
+    DepartmentUser.remove(source, user)
+    DepartmentUser.create(dest, user)
+  }
+
   def getUsersWithRole(Department department, Role role) {
     def users = DepartmentUser.findAllByDepartment(department).user
     def usersWithRole = []
