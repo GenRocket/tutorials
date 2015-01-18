@@ -17,7 +17,7 @@ class DepartmentService {
       throw new Exception("Department, ${name} must reference an organization.")
     }
 
-    if (department.findByOrganizationAndName(organization, department.name)) {
+    if (Department.findByOrganizationAndName(organization, department.name)) {
       throw new Exception("Department ${name} already exists for organization ${organization}.")
     }
 
@@ -27,7 +27,7 @@ class DepartmentService {
       throw new Exception("Unable to save department. Please check that all required attributes are entered.")
     }
 
-    if (user.id) {
+    if (!user.id) {
       userService.create(department, user, address)
     } else {
       def source = DepartmentUser.findByUser(user).department
