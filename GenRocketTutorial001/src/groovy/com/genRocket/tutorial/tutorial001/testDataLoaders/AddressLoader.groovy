@@ -25,10 +25,4 @@ class AddressLoader extends TestDataLoaderBase {
 
     return requests
   }
-
-  public static void main(String[] args) {
-    def results = load()
-
-    println(results)
-  }
 }

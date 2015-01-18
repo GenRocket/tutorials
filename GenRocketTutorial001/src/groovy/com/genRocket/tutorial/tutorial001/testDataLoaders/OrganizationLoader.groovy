@@ -37,10 +37,4 @@ class OrganizationLoader extends TestDataLoaderBase {
 
     return requests
   }
-
-  public static void main(String[] args) {
-    load()
-
-    println('All Done!')
-  }
 }
