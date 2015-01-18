@@ -1,4 +1,4 @@
-package groovy.com.genRocket.tutorial.tutorial001.dto
+package com.genRocket.tutorial.tutorial001.dto
 
 /**
  * Created by htaylor on 1/15/15.

@@ -3,8 +3,8 @@ package com.genRocket.tutorial.tutorial001.testData
 import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Address
 import com.genRocket.tutorial.tutorial001.security.User
-import groovy.com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import groovy.com.genRocket.tutorial.tutorial001.testDataLoaders.UserLoader
+import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
+import com.genRocket.tutorial.tutorial001.testDataLoaders.UserLoader
 
 @Transactional
 class AddressTestDataService {

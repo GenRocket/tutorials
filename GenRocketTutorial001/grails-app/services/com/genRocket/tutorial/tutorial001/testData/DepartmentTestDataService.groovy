@@ -3,8 +3,8 @@ package com.genRocket.tutorial.tutorial001.testData
 import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Department
 import com.genRocket.tutorial.tutorial001.Organization
-import groovy.com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import groovy.com.genRocket.tutorial.tutorial001.testDataLoaders.OrganizationLoader
+import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
+import com.genRocket.tutorial.tutorial001.testDataLoaders.OrganizationLoader
 
 @Transactional
 class DepartmentTestDataService {

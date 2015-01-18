@@ -1,4 +1,4 @@
-package groovy.com.genRocket.tutorial.tutorial001.testDataLoaders
+package com.genRocket.tutorial.tutorial001.testDataLoaders
 
 /**
  * Created by htaylor on 1/17/15.

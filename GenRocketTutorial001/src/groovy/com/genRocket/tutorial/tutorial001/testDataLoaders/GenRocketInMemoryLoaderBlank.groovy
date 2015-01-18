@@ -1,4 +1,4 @@
-package groovy.com.genRocket.tutorial.tutorial001.testDataLoaders
+package com.genRocket.tutorial.tutorial001.testDataLoaders
 
 import com.genRocket.utils.ScenarioRunner
 
