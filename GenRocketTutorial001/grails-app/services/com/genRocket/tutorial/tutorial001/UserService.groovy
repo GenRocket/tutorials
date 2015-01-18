@@ -9,7 +9,7 @@ import grails.transaction.Transactional
 class UserService {
   def addressService
 
-  def create(User user, Address address, Department department) {
+  def create(Department department, User user, Address address) {
     def organization = department.organization
 
     if (!organization) {
