@@ -18,11 +18,8 @@ class AddressLoader extends TestDataLoaderBase {
     organizations.each { node ->
       def dto = new LoaderDTO()
       def address = new Address(node)
-      address.addressOne = node.address
 
-      def map = [address: address]
-
-      dto.object = map
+      dto.object = address
       requests.add(dto)
     }
 
