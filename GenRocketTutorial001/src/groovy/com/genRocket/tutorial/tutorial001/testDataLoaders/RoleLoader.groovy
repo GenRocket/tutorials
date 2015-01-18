@@ -9,8 +9,8 @@ import com.genRocket.utils.ScenarioRunner
  * Created by htaylor on 1/15/15.
  */
 class RoleLoader extends TestDataLoaderBase {
-  static SCENARIO = "com.genRocket.Role.grs"
-  static SCENARIO_DOMAIN = 'com.genRocket.Role.Organization'
+  static SCENARIO = "com.genRocket.Roles.grs"
+  static SCENARIO_DOMAIN = 'com.genRocket.Roles.Role'
 
   static load() {
     def organizations = ScenarioRunner.executeOverSocket(SCENARIO_PATH, ACCESS_KEY, SCENARIO, SCENARIO_DOMAIN)
@@ -20,9 +20,7 @@ class RoleLoader extends TestDataLoaderBase {
       def dto = new LoaderDTO()
       def role = new Role(node)
 
-      def map = [role: role]
-
-      dto.object = map
+      dto.object = role
       requests.add(dto)
     }
 

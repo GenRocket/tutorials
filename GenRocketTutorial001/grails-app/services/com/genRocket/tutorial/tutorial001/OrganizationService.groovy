@@ -9,7 +9,7 @@ import grails.transaction.Transactional
 class OrganizationService {
   def departmentService
 
-  def add(Organization organization, Department department, User user, Address address = null) {
+  def create(Organization organization, Department department, User user, Address address = null) {
     def reverseDomain = organization.reverseDomain
 
     if (Organization.findByReverseDomain(reverseDomain)) {
@@ -24,7 +24,7 @@ class OrganizationService {
 
     department.organization = organization
 
-    departmentService.add(department, user, address)
+    departmentService.create(department, user, address)
 
     def role = Role.findByAuthority(RoleTypes.ROLE_ORG_ADMIN.toString())
 

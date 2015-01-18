@@ -8,8 +8,8 @@ import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
  * Created by htaylor on 1/15/15.
  */
 class AddressLoader extends TestDataLoaderBase {
-  static SCENARIO = "com.genRocket.Address.grs"
-  static SCENARIO_DOMAIN = 'com.genRocket.Address.Organization'
+  static SCENARIO = "com.genRocket.Addresses.grs"
+  static SCENARIO_DOMAIN = 'com.genRocket.Addresses.Address'
 
   static load() {
     def organizations = ScenarioRunner.executeOverSocket(SCENARIO_PATH, ACCESS_KEY, SCENARIO, SCENARIO_DOMAIN)

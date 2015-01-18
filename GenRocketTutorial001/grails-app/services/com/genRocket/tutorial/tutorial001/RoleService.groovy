@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 @Transactional
 class RoleService {
 
-  def save(Role role) {
+  def create(Role role) {
     def authority = role.authority
 
     if (Role.findByAuthority(authority)) {

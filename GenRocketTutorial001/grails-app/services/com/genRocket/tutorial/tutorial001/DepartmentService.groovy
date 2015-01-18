@@ -9,7 +9,7 @@ import grails.transaction.Transactional
 class DepartmentService {
   def userService
 
-  def add(Department department, User user, Address address = null) {
+  def create(Department department, User user, Address address = null) {
     def organization = department.organization
     def name = department.name
 
@@ -28,7 +28,7 @@ class DepartmentService {
     }
 
     if (user.id) {
-      userService.add(department, user, address)
+      userService.create(department, user, address)
     } else {
       def source = DepartmentUser.findByUser(user).department
       def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
