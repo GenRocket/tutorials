@@ -9,8 +9,8 @@ import com.genRocket.utils.ScenarioRunner
  * Created by htaylor on 1/15/15.
  */
 class UserLoader extends TestDataLoaderBase {
-  static SCENARIO = "com.genRocket.User.grs"
-  static SCENARIO_DOMAIN = 'com.genRocket.User.Organization'
+  static SCENARIO = "com.genRocket.Users.grs"
+  static SCENARIO_DOMAIN = 'com.genRocket.Users.User'
 
   static load() {
     def organizations = ScenarioRunner.executeOverSocket(SCENARIO_PATH, ACCESS_KEY, SCENARIO, SCENARIO_DOMAIN)
