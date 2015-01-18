@@ -8,6 +8,7 @@ class Department {
   ]
 
   static constraints = {
+    organization nullable: false
     name nullable: false, blank: false, maxSize: 50
   }
 }
