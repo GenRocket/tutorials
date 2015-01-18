@@ -1,7 +1,6 @@
 package com.genRocket.tutorial.tutorial001.testDataLoaders
 
 import com.genRocket.tutorial.tutorial001.Address
-import com.genRocket.utils.ScenarioRunner
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 
 /**

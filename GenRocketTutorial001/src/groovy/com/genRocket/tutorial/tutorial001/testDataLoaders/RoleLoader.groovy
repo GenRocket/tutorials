@@ -1,9 +1,7 @@
 package com.genRocket.tutorial.tutorial001.testDataLoaders
 
-import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.utils.ScenarioRunner
-
+import com.genRocket.tutorial.tutorial001.security.Role
 
 /**
  * Created by htaylor on 1/15/15.
