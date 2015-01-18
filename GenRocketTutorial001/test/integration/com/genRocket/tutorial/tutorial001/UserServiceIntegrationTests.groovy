@@ -43,6 +43,5 @@ class UserServiceIntegrationTests extends GroovyTestCase {
 
     role = Role.findByAuthority(RoleTypes.ROLE_USER.toString())
     assertNotNull "User should have a role of ${role.authority}", UserRole.findByUserAndRole(user, role)
-
   }
 }
