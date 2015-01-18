@@ -13,7 +13,7 @@ class UserLoader extends TestDataLoaderBase {
   static SCENARIO_DOMAIN = 'com.genRocket.Users.User'
 
   static load() {
-    def organizations = ScenarioRunner.executeOverSocket(SCENARIO_PATH, ACCESS_KEY, SCENARIO, SCENARIO_DOMAIN)
+    def organizations = runScenario(SCENARIO, SCENARIO_DOMAIN)
     def requests = []
 
     organizations.each { node ->
