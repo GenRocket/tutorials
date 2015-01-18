@@ -30,7 +30,7 @@ class DepartmentTestDataService {
 
         department.organization = organization
 
-        departmentService.add(department, map.user, map.address)
+        departmentService.create(department, map.user, map.address)
       }
     }
   }

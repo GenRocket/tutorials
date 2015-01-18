@@ -26,7 +26,7 @@ class OrganizationTestDataService {
       organizations.each { node ->
         def map = (Map) node.object
 
-        organizationService.add(map.organization, map.department, map.user, map.address)
+        organizationService.create(map.organization, map.department, map.user, map.address)
       }
     }
   }

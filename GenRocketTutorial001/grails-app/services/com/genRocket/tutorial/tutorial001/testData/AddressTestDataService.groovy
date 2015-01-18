@@ -27,7 +27,7 @@ class AddressTestDataService {
       addresses.each { node ->
         def map = (Map) node.object
 
-        addressService.add(user, map.address)
+        addressService.create(user, map.address)
       }
     }
   }

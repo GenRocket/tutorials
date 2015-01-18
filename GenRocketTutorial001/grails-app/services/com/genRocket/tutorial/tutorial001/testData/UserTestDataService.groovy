@@ -27,7 +27,7 @@ class UserTestDataService {
       users.each { node ->
         def map = (Map) node.object
 
-        userService.add(department, map.user, map.address)
+        userService.create(department, map.user, map.address)
       }
     }
   }
