@@ -1,6 +1,5 @@
 package com.genRocket.tutorial.tutorial001.security
 
-import com.genRocket.tutorial.tutorial001.security.User
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
