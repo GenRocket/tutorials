@@ -36,9 +36,35 @@ class UserService {
     UserRole.create(user, Role.findByAuthority(RoleTypes.ROLE_USER.toString()), organization)
     DepartmentUser.create(department, user)
 
-    // need if check...
     def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
 
-    UserRole.create(user, role, organization)
+    if (getUsersWithRole(department, role).size() == 0) {
+      UserRole.create(user, role, organization)
+    }
   }
+
+  def getUsersWithRole(Department department, Role role) {
+    def users = DepartmentUser.findAllByDepartment(department).user
+    def usersWithRole = []
+
+    users.each { user ->
+      if (UserRole.findByUserAndRole(user, role)) {
+        usersWithRole.add(user)
+      }
+    }
+
+    return usersWithRole
+  }
+
+//  def getUsers(Department department, Role role) {
+//    return User.withCriteria {
+//      authorities() {
+//        eq('authority': role.authority)
+//      }
+//
+//      departments() {
+//        eq('id': department.id)
+//      }
+//    }
+//  }
 }
