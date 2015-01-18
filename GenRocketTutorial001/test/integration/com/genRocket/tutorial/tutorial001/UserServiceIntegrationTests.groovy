@@ -23,7 +23,7 @@ class UserServiceIntegrationTests extends GroovyTestCase {
     super.tearDown()
   }
 
-  void testCreateDepartment() {
+  void testCreate() {
     departmentTestDataService.loadData()
 
     def users = (LoaderDTO[]) UserLoader.load()
@@ -43,5 +43,27 @@ class UserServiceIntegrationTests extends GroovyTestCase {
 
     role = Role.findByAuthority(RoleTypes.ROLE_USER.toString())
     assertNotNull "User should have a role of ${role.authority}", UserRole.findByUserAndRole(user, role)
+  }
+
+  void testMove() {
+    departmentTestDataService.loadData()
+
+    def users = (LoaderDTO[]) UserLoader.load()
+    def node = users[0]
+    def user = ((User) node.object.user)
+    def address = ((Address) node.object.address)
+
+    def departments = Department.list()
+    def sourceDept = departments[0]
+    def destDept = departments[1]
+
+    userService.create(sourceDept, user, address)
+    userService.move(user, sourceDept, destDept)
+
+    def departmentUser = DepartmentUser.findByDepartmentAndUser(sourceDept, user)
+    assertNull "User should no longer belong to department, ${sourceDept.name}", departmentUser
+
+    departmentUser = DepartmentUser.findByDepartmentAndUser(destDept, user)
+    assertNotNull "User should now belong to department, ${destDept.name}", departmentUser
   }
 }
