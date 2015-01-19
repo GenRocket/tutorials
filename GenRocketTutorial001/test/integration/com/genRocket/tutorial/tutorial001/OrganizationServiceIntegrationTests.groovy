@@ -4,7 +4,7 @@ import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.security.UserRole
-import com.genRocket.tutorial.tutorial001.testDataLoaders.OrganizationLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationLoader
 
 /**
  * Created by htaylor on 1/17/15.

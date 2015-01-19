@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Address
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoaders.UserLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.UserLoader
 
 @Transactional
 class AddressTestDataService {

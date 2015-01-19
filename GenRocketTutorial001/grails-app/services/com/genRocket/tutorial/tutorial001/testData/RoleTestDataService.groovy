@@ -3,7 +3,7 @@ package com.genRocket.tutorial.tutorial001.testData
 import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoaders.RoleLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.RoleLoader
 
 @Transactional
 class RoleTestDataService {

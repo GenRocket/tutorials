@@ -2,7 +2,7 @@ package com.genRocket.tutorial.tutorial001
 
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.User
-import com.genRocket.tutorial.tutorial001.testDataLoaders.AddressLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.AddressLoader
 
 /**
  * Created by htaylor on 1/18/15.

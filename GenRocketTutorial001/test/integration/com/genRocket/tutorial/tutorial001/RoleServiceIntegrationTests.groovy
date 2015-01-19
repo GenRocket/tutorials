@@ -2,12 +2,12 @@ package com.genRocket.tutorial.tutorial001
 
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.Role
-import com.genRocket.tutorial.tutorial001.testDataLoaders.RoleLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.RoleLoader
 
 /**
  * Created by htaylor on 1/17/15.
  */
-class RolesServiceIntegrationTests extends GroovyTestCase {
+class RoleServiceIntegrationTests extends GroovyTestCase {
   def roleService
 
   protected void setUp() {
@@ -31,13 +31,13 @@ class RolesServiceIntegrationTests extends GroovyTestCase {
   void testCreateRoleUniqueConstraint() {
     def roles = (LoaderDTO[]) RoleLoader.load()
     def node = roles[1]
-    def role = ((Role) node.object)
+    def role1 = ((Role) node.object)
+    def role2 = ((Role) node.object)
 
-    roleService.create(role)
-    roleService.create(role)
+    roleService.create(role1)
+    roleService.create(role2)
 
-    assertTrue role.hasErrors()
-    assertEquals 'unique', role.errors['authority'].code
-
+    assertTrue role2.hasErrors()
+    assertEquals 'unique', role2.errors['authority'].code
   }
 }

@@ -1,16 +1,17 @@
-package com.genRocket.tutorial.tutorial001.testDataLoaders
+package com.genRocket.tutorial.tutorial001.testDataLoader
 
 import com.genRocket.tutorial.tutorial001.Address
 import com.genRocket.tutorial.tutorial001.Department
+import com.genRocket.tutorial.tutorial001.Organization
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.User
 
 /**
  * Created by htaylor on 1/15/15.
  */
-class DepartmentLoader extends TestDataLoaderBase {
-  static SCENARIO = "com.genRocket.Departments.grs"
-  static SCENARIO_DOMAIN = 'com.genRocket.Departments.Department'
+class OrganizationLoader extends TestDataLoaderBase {
+  static SCENARIO = "com.genRocket.Organizations.grs"
+  static SCENARIO_DOMAIN = 'com.genRocket.Organizations.Organization'
 
   static load() {
     def organizations = runScenario(SCENARIO, SCENARIO_DOMAIN)
@@ -18,13 +19,16 @@ class DepartmentLoader extends TestDataLoaderBase {
 
     organizations.each { node ->
       def dto = new LoaderDTO()
-      def department = new Department(node)
+      def organization = new Organization(node)
       def user = new User(node)
-      def address = new Address(node)
 
+      def address = new Address(node)
       address.addressOne = node.address
 
-      def map = [department: department, user: user, address: address]
+      def department = new Department()
+      department.name = node.departmentName
+
+      def map = [organization: organization, department: department, user: user, address: address]
 
       dto.object = map
       requests.add(dto)

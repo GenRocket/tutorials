@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Department
 import com.genRocket.tutorial.tutorial001.Organization
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoaders.OrganizationLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationLoader
 
 @Transactional
 class DepartmentTestDataService {

@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Department
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoaders.DepartmentLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.DepartmentLoader
 
 @Transactional
 class UserTestDataService {
