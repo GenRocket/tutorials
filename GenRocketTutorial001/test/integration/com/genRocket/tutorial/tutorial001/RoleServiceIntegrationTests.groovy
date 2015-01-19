@@ -3,20 +3,21 @@ package com.genRocket.tutorial.tutorial001
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.testDataLoader.RoleLoader
+import grails.test.mixin.integration.IntegrationTestMixin
+import org.junit.After
+import org.junit.Before
+import grails.test.mixin.TestMixin
+import static org.junit.Assert.*
 
-/**
- * Created by htaylor on 1/17/15.
- */
-class RoleServiceIntegrationTests extends GroovyTestCase {
+@TestMixin(IntegrationTestMixin)
+class RoleServiceIntegrationTests {
   def roleService
 
-  protected void setUp() {
-    super.setUp()
-  }
+  @Before
+  public void setUp() {}
 
-  protected void tearDown() {
-    super.tearDown()
-  }
+  @After
+  public void tearDown() {}
 
   void testCreateRole() {
     def roles = (LoaderDTO[]) RoleLoader.load()

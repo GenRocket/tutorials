@@ -5,27 +5,26 @@ import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.security.UserRole
 import com.genRocket.tutorial.tutorial001.testDataLoader.DepartmentLoader
+import grails.test.mixin.integration.IntegrationTestMixin
+import org.junit.After
+import org.junit.Before
+import grails.test.mixin.TestMixin
+import static org.junit.Assert.*
 
-/**
- * Created by htaylor on 1/18/15.
- */
-class DepartmentServiceIntegrationTests extends GroovyTestCase {
+@TestMixin(IntegrationTestMixin)
+class DepartmentServiceIntegrationTests {
   def departmentService
   def organizationTestDataService
 
-  protected void setUp() {
-    super.setUp()
-
-    //organizationTestDataService.loadData()
+  @Before
+  public void setUp() {
+    organizationTestDataService.loadData()
   }
 
-  protected void tearDown() {
-    super.tearDown()
-  }
+  @After
+  public void tearDown() {}
 
   void testCreateDepartment() {
-    organizationTestDataService.loadData()
-
     def departments = (LoaderDTO[]) DepartmentLoader.load()
     def node = departments[0]
     def department = ((Department) node.object.department)

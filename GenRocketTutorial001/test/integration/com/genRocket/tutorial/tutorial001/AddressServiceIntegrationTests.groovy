@@ -3,27 +3,26 @@ package com.genRocket.tutorial.tutorial001
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.testDataLoader.AddressLoader
+import grails.test.mixin.integration.IntegrationTestMixin
+import org.junit.After
+import org.junit.Before
+import grails.test.mixin.TestMixin
+import static org.junit.Assert.*
 
-/**
- * Created by htaylor on 1/18/15.
- */
-class AddressServiceIntegrationTests extends GroovyTestCase {
+@TestMixin(IntegrationTestMixin)
+class AddressServiceIntegrationTests {
   def addressService
   def userTestDataService
 
-  protected void setUp() {
-    super.setUp()
-
-    //userTestDataService.loadData()
+  @Before
+  public void setUp() {
+    userTestDataService.loadData()
   }
 
-  protected void tearDown() {
-    super.tearDown()
-  }
+  @After
+  public void tearDown() {}
 
   void testCreateDepartment() {
-    userTestDataService.loadData()
-
     def addresses = (LoaderDTO[]) AddressLoader.load()
     def node = addresses[0]
     def address = ((Address) node.object)

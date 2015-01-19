@@ -5,27 +5,26 @@ import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.security.UserRole
 import com.genRocket.tutorial.tutorial001.testDataLoader.UserLoader
+import grails.test.mixin.integration.IntegrationTestMixin
+import org.junit.After
+import org.junit.Before
+import grails.test.mixin.TestMixin
+import static org.junit.Assert.*
 
-/**
- * Created by htaylor on 1/18/15.
- */
-class UserServiceIntegrationTests extends GroovyTestCase {
+@TestMixin(IntegrationTestMixin)
+class UserServiceIntegrationTests {
   def userService
   def departmentTestDataService
 
-  protected void setUp() {
-    super.setUp()
-
-    //departmentTestDataService.loadData()
+  @Before
+  public void setUp() {
+    departmentTestDataService.loadData()
   }
 
-  protected void tearDown() {
-    super.tearDown()
-  }
+  @After
+  public void tearDown() {}
 
   void testCreate() {
-    departmentTestDataService.loadData()
-
     def users = (LoaderDTO[]) UserLoader.load()
     def node = users[0]
     def user = ((User) node.object.user)

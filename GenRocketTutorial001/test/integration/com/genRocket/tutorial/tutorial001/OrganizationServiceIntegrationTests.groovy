@@ -5,27 +5,26 @@ import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.security.UserRole
 import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationLoader
+import grails.test.mixin.integration.IntegrationTestMixin
+import org.junit.After
+import org.junit.Before
+import grails.test.mixin.TestMixin
+import static org.junit.Assert.*
 
-/**
- * Created by htaylor on 1/17/15.
- */
-class OrganizationServiceIntegrationTests extends GroovyTestCase {
+@TestMixin(IntegrationTestMixin)
+class OrganizationServiceIntegrationTests {
   def organizationService
   def roleTestDataService
 
-  protected void setUp() {
-    super.setUp()
-
-    //roleTestDataService.loadData()
+  @Before
+  public void setUp() {
+    roleTestDataService.loadData()
   }
 
-  protected void tearDown() {
-    super.tearDown()
-  }
+  @After
+  public void tearDown() {}
 
   void testCreateOrganization() {
-    roleTestDataService.loadData()
-
     def organizations = (LoaderDTO[]) OrganizationLoader.load()
     def node = organizations[0]
     def organization = ((Organization) node.object.organization)
@@ -50,6 +49,4 @@ class OrganizationServiceIntegrationTests extends GroovyTestCase {
     role = Role.findByAuthority(RoleTypes.ROLE_USER.toString())
     assertNotNull "User should have a role of ${role.authority}", UserRole.findByUserAndRole(user, role)
   }
-
-
 }
