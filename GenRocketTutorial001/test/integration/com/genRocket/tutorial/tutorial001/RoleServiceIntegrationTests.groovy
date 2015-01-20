@@ -36,9 +36,13 @@ class RoleServiceIntegrationTests {
     def role2 = ((Role) node.object)
 
     roleService.create(role1)
-    roleService.create(role2)
 
-    assertTrue role2.hasErrors()
-    assertEquals 'unique', role2.errors['authority'].code
+    try {
+      roleService.create(role2)
+      assertTrue "Service did not catch duplicate error.", false
+    } catch (e) {
+      def message = "Role, ${role2.authority} already exists a may not be added twice."
+      assertTrue message == e.getMessage()
+    }
   }
 }
