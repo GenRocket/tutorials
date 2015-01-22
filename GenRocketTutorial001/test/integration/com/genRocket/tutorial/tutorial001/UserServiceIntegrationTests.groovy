@@ -4,7 +4,7 @@ import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.security.UserRole
-import com.genRocket.tutorial.tutorial001.testDataLoader.UserLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.UserTestDataLoader
 import grails.test.mixin.integration.IntegrationTestMixin
 import org.junit.After
 import org.junit.Before
@@ -25,7 +25,7 @@ class UserServiceIntegrationTests {
   public void tearDown() {}
 
   void testCreate() {
-    def users = (LoaderDTO[]) UserLoader.load()
+    def users = (LoaderDTO[]) UserTestDataLoader.load()
     def node = users[0]
     def user = ((User) node.object.user)
     def address = ((Address) node.object.address)
@@ -47,7 +47,7 @@ class UserServiceIntegrationTests {
   void testMove() {
     departmentTestDataService.loadData()
 
-    def users = (LoaderDTO[]) UserLoader.load()
+    def users = (LoaderDTO[]) UserTestDataLoader.load()
     def node = users[0]
     def user = ((User) node.object.user)
     def address = ((Address) node.object.address)

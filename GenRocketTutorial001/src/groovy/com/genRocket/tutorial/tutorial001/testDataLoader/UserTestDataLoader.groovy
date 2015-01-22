@@ -7,13 +7,13 @@ import com.genRocket.tutorial.tutorial001.security.User
 /**
  * Created by htaylor on 1/15/15.
  */
-class UserLoader extends TestDataLoaderBase {
+class UserTestDataLoader extends TestDataLoaderBase {
   static SCENARIO = "com.genRocket.Users.grs"
   static SCENARIO_DOMAIN = 'com.genRocket.Users.User'
 
   static load() {
     def organizations = runScenario(SCENARIO, SCENARIO_DOMAIN)
-    def requests = []
+    def testData = []
 
     organizations.each { node ->
       def dto = new LoaderDTO()
@@ -25,9 +25,9 @@ class UserLoader extends TestDataLoaderBase {
       def map = [user: user, address: address]
 
       dto.object = map
-      requests.add(dto)
+      testData.add(dto)
     }
 
-    return requests
+    return testData
   }
 }

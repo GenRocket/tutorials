@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Address
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoader.UserLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.UserTestDataLoader
 
 @Transactional
 class AddressTestDataService {
@@ -22,7 +22,7 @@ class AddressTestDataService {
     }
 
     if (Address.count() == 0) {
-      def addresses = (LoaderDTO[]) UserLoader.load()
+      def addresses = (LoaderDTO[]) UserTestDataLoader.load()
 
       addresses.each { node ->
         def map = (Map) node.object

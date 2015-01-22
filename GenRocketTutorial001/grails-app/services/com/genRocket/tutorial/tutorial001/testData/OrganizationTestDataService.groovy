@@ -4,7 +4,7 @@ import com.genRocket.tutorial.tutorial001.Organization
 import com.genRocket.tutorial.tutorial001.security.Role
 import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationTestDataLoader
 
 @Transactional
 class OrganizationTestDataService {
@@ -21,7 +21,7 @@ class OrganizationTestDataService {
     }
 
     if (Organization.count() == 0) {
-      def organizations = (LoaderDTO[]) OrganizationLoader.load()
+      def organizations = (LoaderDTO[]) OrganizationTestDataLoader.load()
 
       organizations.each { node ->
         def map = (Map) node.object

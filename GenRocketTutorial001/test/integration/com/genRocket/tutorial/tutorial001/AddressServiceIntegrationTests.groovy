@@ -2,7 +2,7 @@ package com.genRocket.tutorial.tutorial001
 
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.User
-import com.genRocket.tutorial.tutorial001.testDataLoader.AddressLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.AddressTestDataLoader
 import grails.test.mixin.integration.IntegrationTestMixin
 import org.junit.After
 import org.junit.Before
@@ -23,7 +23,7 @@ class AddressServiceIntegrationTests {
   public void tearDown() {}
 
   void testCreateDepartment() {
-    def addresses = (LoaderDTO[]) AddressLoader.load()
+    def addresses = (LoaderDTO[]) AddressTestDataLoader.load()
     def node = addresses[0]
     def address = ((Address) node.object)
     def user = User.first()

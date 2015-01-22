@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Department
 import com.genRocket.tutorial.tutorial001.Organization
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationTestDataLoader
 
 @Transactional
 class DepartmentTestDataService {
@@ -22,7 +22,7 @@ class DepartmentTestDataService {
     }
 
     if (Department.count() == 0) {
-      def departments = (LoaderDTO[]) OrganizationLoader.load()
+      def departments = (LoaderDTO[]) OrganizationTestDataLoader.load()
 
       departments.each { node ->
         def map = (Map) node.object

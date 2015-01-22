@@ -4,7 +4,7 @@ import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.security.UserRole
-import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationTestDataLoader
 import grails.test.mixin.integration.IntegrationTestMixin
 import org.junit.After
 import org.junit.Before
@@ -25,7 +25,7 @@ class OrganizationServiceIntegrationTests {
   public void tearDown() {}
 
   void testCreateOrganization() {
-    def organizations = (LoaderDTO[]) OrganizationLoader.load()
+    def organizations = (LoaderDTO[]) OrganizationTestDataLoader.load()
     def node = organizations[0]
     def organization = ((Organization) node.object.organization)
     def department = ((Department) node.object.department)
