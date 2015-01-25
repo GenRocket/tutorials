@@ -18,7 +18,7 @@ class OrganizationService {
     if (Organization.findByReverseDomain(reverseDomain)) {
       throw new Exception("An organization with reverse domain ${reverseDomain} already exists.")
     }
-    
+
     organization.save()
 
     if (organization.hasErrors()) {
