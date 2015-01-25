@@ -9,7 +9,15 @@ class TestDataLoaderBase {
   static ACCESS_KEY = System.getenv()['GR_ACCESS_KEY']
   static SCENARIO_PATH = System.getenv()['GR_TUTORIAL_OO1']
 
-  static runScenario(scenario, scenarioDomain) {
-    return ScenarioRunner.executeOverSocket(SCENARIO_PATH, ACCESS_KEY, scenario, scenarioDomain)
+  static runScenario(ScenarioParams params) {
+    def result = ScenarioRunner.executeOverSocket(
+        SCENARIO_PATH, ACCESS_KEY, params.scenario, params.scenarioDomain, params.inMemory, params.loopCount, params.host, params.port
+    )
+
+    if (result.responseType == 'data' || result.responseType == 'message') {
+      return result.response
+    } else {
+      throw new Exception(result.response)
+    }
   }
 }

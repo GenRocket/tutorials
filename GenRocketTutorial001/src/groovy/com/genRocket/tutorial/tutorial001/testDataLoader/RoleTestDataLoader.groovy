@@ -11,10 +11,10 @@ class RoleTestDataLoader extends TestDataLoaderBase {
   static SCENARIO_DOMAIN = 'com.genRocket.Roles.Role'
 
   static load() {
-    def organizations = runScenario(SCENARIO, SCENARIO_DOMAIN)
+    def roles = runScenario(new ScenarioParams(SCENARIO, SCENARIO_DOMAIN))
     def testData = []
 
-    organizations.each { node ->
+    roles.each { node ->
       def dto = new LoaderDTO()
       def role = new Role(node)
 

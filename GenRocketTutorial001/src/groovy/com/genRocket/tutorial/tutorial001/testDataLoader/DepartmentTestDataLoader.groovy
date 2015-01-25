@@ -13,7 +13,7 @@ class DepartmentTestDataLoader extends TestDataLoaderBase {
   static SCENARIO_DOMAIN = 'com.genRocket.Departments.Department'
 
   static load() {
-    def organizations = runScenario(SCENARIO, SCENARIO_DOMAIN)
+    def organizations = runScenario(new ScenarioParams(SCENARIO, SCENARIO_DOMAIN))
     def testData = []
 
     organizations.each { node ->
