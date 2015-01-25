@@ -3,6 +3,7 @@ package com.genRocket.tutorial.tutorial001.security
 import com.genRocket.tutorial.tutorial001.Department
 import com.genRocket.tutorial.tutorial001.DepartmentUser
 import com.genRocket.tutorial.tutorial001.Organization
+import com.genRocket.tutorial.tutorial001.RoleTypes
 
 class User {
   transient springSecurityService
@@ -60,6 +61,18 @@ class User {
 
   Set<Department> getDepartments() {
     DepartmentUser.findAllByUser(this).collect { it.department } as Set
+  }
+
+  def hasRole(RoleTypes roleType) {
+    def roleFound = false
+
+    getAuthorities().each { role ->
+      if (role.authority == roleType.toString()) {
+        roleFound = true
+      }
+    }
+
+    return role
   }
 
   def beforeInsert() {

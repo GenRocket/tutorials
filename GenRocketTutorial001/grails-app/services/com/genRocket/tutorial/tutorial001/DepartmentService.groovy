@@ -9,6 +9,10 @@ import grails.transaction.Transactional
 class DepartmentService {
   def userService
 
+  def admin = RoleTypes.ROLE_ADMIN
+  def orgAdmin = RoleTypes.ROLE_ORG_ADMIN
+  def deptAdmin = RoleTypes.ROLE_DEPT_ADMIN
+
   def create(Department department, User user, Address address = null) {
     def organization = department.organization
     def name = department.name
@@ -39,5 +43,61 @@ class DepartmentService {
         UserRole.create(user, role, organization)
       }
     }
+  }
+
+  def enable(User user) {
+    if (user.hasRole(admin)) {
+      throw new Exception("User with role ${deptAdmin.toString()} cannot enable user with role ${admin.toString()}.")
+    }
+
+    if (user.hasRole(orgAdmin)) {
+      throw new Exception("User with role ${deptAdmin.toString()} cannot enable user with role ${orgAdmin.toString()}.")
+    }
+
+    user.enabled = true
+    user.save()
+  }
+
+  def disable(User user) {
+    if (user.hasRole(admin)) {
+      throw new Exception("User with role ${deptAdmin.toString()} cannot disable user with role ${admin.toString()}.")
+    }
+
+    if (user.hasRole(orgAdmin)) {
+      throw new Exception("User with role ${deptAdmin.toString()} cannot disable user with role ${orgAdmin.toString()}.")
+    }
+
+    user.enabled = false
+    user.save()
+  }
+
+  def activate(Address address) {
+    def user = UserAddress.findByAddress(address).user
+
+    if (user.hasRole(admin)) {
+      throw new Exception("User with role ${deptAdmin.toString()} cannot activate address of user with role ${admin.toString()}.")
+    }
+
+    if (user.hasRole(orgAdmin)) {
+      throw new Exception("User with role ${deptAdmin.toString()} cannot activate address of user with role ${orgAdmin.toString()}.")
+    }
+
+    address.active = true
+    address.save()
+  }
+
+  def deactivate(Address address) {
+    def user = UserAddress.findByAddress(address).user
+
+    if (user.hasRole(admin)) {
+      throw new Exception("User with role ${deptAdmin.toString()} cannot deactivate address of user with role ${admin.toString()}.")
+    }
+
+    if (user.hasRole(orgAdmin)) {
+      throw new Exception("User with role ${deptAdmin.toString()} cannot deactivate address of user with role ${orgAdmin.toString()}.")
+    }
+
+    address.active = false
+    address.save()
   }
 }
