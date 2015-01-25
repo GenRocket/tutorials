@@ -7,7 +7,7 @@ import com.genRocket.utils.ScenarioRunner
  */
 class TestDataLoaderBase {
   static ACCESS_KEY = System.getenv()['GR_ACCESS_KEY']
-  static SCENARIO_PATH = System.getenv()['GR_TUTORIAL_OO1']
+  static SCENARIO_PATH = System.getenv()['GR_TUTORIAL_001']
 
   static runScenario(ScenarioParams params) {
     def result = ScenarioRunner.executeOverSocket(
@@ -17,7 +17,7 @@ class TestDataLoaderBase {
     if (result.responseType == 'data' || result.responseType == 'message') {
       return result.response
     } else {
-      throw new Exception(result.response)
+      throw new Exception((String) result.response)
     }
   }
 }
