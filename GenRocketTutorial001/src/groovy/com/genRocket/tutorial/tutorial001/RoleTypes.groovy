@@ -18,10 +18,6 @@ public enum RoleTypes {
     name()
   }
 
-  String getValue() {
-    value
-  }
-
   String toString() {
     value
   }
