@@ -4,6 +4,7 @@ import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.security.User
 import com.genRocket.tutorial.tutorial001.security.UserRole
+import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationTestDataLoader
 import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationWSTestDataLoader
 import grails.test.mixin.integration.IntegrationTestMixin
 import org.junit.After
@@ -24,7 +25,36 @@ class OrganizationServiceIntegrationTests {
   @After
   public void tearDown() {}
 
-  void testCreateOrganizationWS() {
+  void testSave() {
+    def organizations = (LoaderDTO[]) OrganizationTestDataLoader.load()
+    def node = organizations[0]
+    def organization = ((Organization) node.object)
+
+    organizationService.save(organization)
+
+    assertNotNull "organization.id should not be null", organization.id
+  }
+
+  void testSaveUniqueReverseDomain() {
+    def organizations = (LoaderDTO[]) OrganizationTestDataLoader.load()
+    def node = organizations[1]
+    def org1 = ((Organization) node.object)
+
+    organizationService.save(org1)
+
+    assertNotNull "Organization One should have an id but does not", org1.id
+
+    node = organizations[2]
+    def org2 = ((Organization) node.object)
+    org2.reverseDomain = org1.reverseDomain
+
+    organizationService.save(org2)
+
+    assertTrue "Organization Two should have errors", org2.hasErrors()
+    assertNull "Organization Two should not have an id", org2.id
+  }
+
+  void testSaveOrganizationWS() {
     def organizations = (LoaderDTO[]) OrganizationWSTestDataLoader.load()
     def node = organizations[0]
     def organization = ((Organization) node.object.organization)
@@ -32,7 +62,7 @@ class OrganizationServiceIntegrationTests {
     def user = ((User) node.object.user)
     def address = ((Address) node.object.address)
 
-    organizationService.create(organization, department, user, address)
+    organizationService.save(organization, department, user, address)
 
     assertNotNull "organization.id should not be null", organization.id
     assertNotNull "department.id should not be null", department.id

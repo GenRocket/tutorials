@@ -11,12 +11,12 @@ class OrganizationService {
   def addressService
   def departmentService
 
-  def create(Organization organization) {
+  def save(Organization organization) {
     organization.save()
   }
 
-  def create(Organization organization, Department department, User user, Address address) {
-    create(organization)
+  def save(Organization organization, Department department, User user, Address address) {
+    save(organization)
 
     if (!organization.hasErrors()) {
       department.organization = organization
