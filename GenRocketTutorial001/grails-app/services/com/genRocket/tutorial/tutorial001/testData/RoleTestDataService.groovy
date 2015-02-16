@@ -13,17 +13,21 @@ class RoleTestDataService {
   def roleService
   def testDataMapService
 
-  def loadData() {
+  def loadData(Boolean useTestDataMap = false) {
     println "Loading Roles..."
 
     if (Role.list().size() == 0) {
       def roles = (LoaderDTO[]) RoleTestDataLoader.load()
 
       roles.each { node ->
+        def syntheticId = node.object.id
         def role = (Role) node.object
 
-        roleService.create(role)
-        testDataMapService.save(Namespaces.ROLE, node.id, role.id)
+        roleService.save(role)
+
+        if (useTestDataMap) {
+          testDataMapService.save(Namespaces.ROLE, syntheticId, role.id)
+        }
       }
     }
   }
