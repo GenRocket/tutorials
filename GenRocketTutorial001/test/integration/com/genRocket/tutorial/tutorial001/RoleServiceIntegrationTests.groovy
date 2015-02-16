@@ -33,14 +33,18 @@ class RoleServiceIntegrationTests {
     def roles = (LoaderDTO[]) RoleTestDataLoader.load()
     def node = roles[1]
     def role1 = ((Role) node.object)
-    def role2 = ((Role) node.object)
 
     roleService.create(role1)
 
     assertNotNull "Role1 should have an id but does not", role1.id
 
+    node = roles[2]
+    def role2 = ((Role) node.object)
+    role2.authority = role1.authority
+
     roleService.create(role2)
 
-    assertTrue "Role2 should equal Role1 because it should have updated", role2.id == role1.id
+    assertTrue "Role2 should have errors", role2.hasErrors()
+    assertNull "Role2 should not have an id", role2.id
   }
 }
