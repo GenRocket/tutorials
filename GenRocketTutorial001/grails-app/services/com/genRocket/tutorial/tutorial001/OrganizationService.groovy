@@ -20,7 +20,7 @@ class OrganizationService {
 
     if (!organization.hasErrors()) {
       department.organization = organization
-      departmentService.create(department)
+      departmentService.save(department)
 
       if (!department.hasErrors()) {
         userService.create(user)

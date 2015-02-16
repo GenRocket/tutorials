@@ -8,96 +8,30 @@ import grails.transaction.Transactional
 @Transactional
 class DepartmentService {
   def userService
+  def addressService
 
-  def admin = RoleTypes.ROLE_ADMIN
-  def orgAdmin = RoleTypes.ROLE_ORG_ADMIN
-  def deptAdmin = RoleTypes.ROLE_DEPT_ADMIN
-
-  def create(Department department, User user, Address address = null) {
-    def organization = department.organization
-    def name = department.name
-
-    if (!organization) {
-      throw new Exception("Department, ${name} must reference an organization.")
-    }
-
-    if (Department.findByOrganizationAndName(organization, department.name)) {
-      throw new Exception("Department ${name} already exists for organization ${organization}.")
-    }
-
+  def save(Department department) {
     department.save()
+  }
 
-    if (department.hasErrors()) {
-      throw new Exception("Unable to save department. Please check that all required attributes are entered.")
-    }
+  def save(Department department, User user, Address address) {
+    save(department)
 
-    if (!user.id) {
-      userService.create(department, user, address)
-    } else {
-      def source = DepartmentUser.findByUser(user).department
-      def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
+    if (!department.hasErrors()) {
+      userService.create(user)
 
-      userService.move(user, source, department)
+      if (!user.hasErrors()) {
+        DepartmentUser.create(department, user)
 
-      if (!UserRole.findByUserAndRole(user, role)){
-        UserRole.create(user, role, organization)
+        def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
+        UserRole.create(user, role, true)
+
+        addressService.create(address)
+
+        if (!address.hasErrors()) {
+          UserAddress.create(address, user, true)
+        }
       }
     }
-  }
-
-  def enable(User user) {
-    if (user.hasRole(admin)) {
-      throw new Exception("User with role ${deptAdmin.toString()} cannot enable user with role ${admin.toString()}.")
-    }
-
-    if (user.hasRole(orgAdmin)) {
-      throw new Exception("User with role ${deptAdmin.toString()} cannot enable user with role ${orgAdmin.toString()}.")
-    }
-
-    user.enabled = true
-    user.save()
-  }
-
-  def disable(User user) {
-    if (user.hasRole(admin)) {
-      throw new Exception("User with role ${deptAdmin.toString()} cannot disable user with role ${admin.toString()}.")
-    }
-
-    if (user.hasRole(orgAdmin)) {
-      throw new Exception("User with role ${deptAdmin.toString()} cannot disable user with role ${orgAdmin.toString()}.")
-    }
-
-    user.enabled = false
-    user.save()
-  }
-
-  def activate(Address address) {
-    def user = UserAddress.findByAddress(address).user
-
-    if (user.hasRole(admin)) {
-      throw new Exception("User with role ${deptAdmin.toString()} cannot activate address of user with role ${admin.toString()}.")
-    }
-
-    if (user.hasRole(orgAdmin)) {
-      throw new Exception("User with role ${deptAdmin.toString()} cannot activate address of user with role ${orgAdmin.toString()}.")
-    }
-
-    address.active = true
-    address.save()
-  }
-
-  def deactivate(Address address) {
-    def user = UserAddress.findByAddress(address).user
-
-    if (user.hasRole(admin)) {
-      throw new Exception("User with role ${deptAdmin.toString()} cannot deactivate address of user with role ${admin.toString()}.")
-    }
-
-    if (user.hasRole(orgAdmin)) {
-      throw new Exception("User with role ${deptAdmin.toString()} cannot deactivate address of user with role ${orgAdmin.toString()}.")
-    }
-
-    address.active = false
-    address.save()
   }
 }

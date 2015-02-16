@@ -1,5 +1,7 @@
 package com.genRocket.tutorial.tutorial001.testData
 
+import com.genRocket.tutorial.tutorial001.DepartmentUser
+import com.genRocket.tutorial.tutorial001.Namespaces
 import com.genRocket.tutorial.tutorial001.testDataLoader.UserTestDataLoader
 import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Department
@@ -11,23 +13,32 @@ class UserTestDataService {
   static transactional = true
 
   def userService
+  def testDataMapService
   def departmentTestDataService
 
-  def loadData(Department department = null) {
+  def loadData(Department department = null, Boolean useTestDataMap) {
     println "Loading Users..."
 
     if (!department) {
       departmentTestDataService.loadData()
-      department = Department.first()
+
+      if (!useTestDataMap) {
+        department = Department.first()
+      }
     }
 
     if (User.count() == 0) {
       def users = (LoaderDTO[]) UserTestDataLoader.load()
 
       users.each { node ->
-        def map = (Map) node.object
+        def user = (User) node.object
 
-        userService.create(department, map.user, map.address)
+        userService.create(user)
+
+        if (useTestDataMap) {
+          department = (Department) testDataMapService.getDomain(Namespaces.DEPARTMENT, node.parentId)
+          DepartmentUser.create(department, user)
+        }
       }
     }
   }

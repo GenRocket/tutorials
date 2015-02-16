@@ -1,36 +1,49 @@
 package com.genRocket.tutorial.tutorial001.testData
 
-import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Department
+import com.genRocket.tutorial.tutorial001.Namespaces
 import com.genRocket.tutorial.tutorial001.Organization
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoader.OrganizationTestDataLoader
+import com.genRocket.tutorial.tutorial001.testDataLoader.DepartmentTestDataLoader
+import grails.transaction.Transactional
 
 @Transactional
 class DepartmentTestDataService {
   static transactional = true
 
   def departmentService
+  def testDataMapService
   def organizationTestDataService
 
-  def loadData(Organization organization = null) {
+  def loadData(Boolean useTestDataMap, Organization organization = null) {
     println "Loading Departments..."
 
-    if (!organization) {
-      organizationTestDataService.loadData()
-      organization = Organization.first()
-    }
-
     if (Department.count() == 0) {
-      def departments = (LoaderDTO[]) OrganizationTestDataLoader.load()
+
+      if (!organization) {
+        organizationTestDataService.loadData()
+
+        if (!useTestDataMap) {
+          organization = Organization.first()
+        }
+      }
+
+      def departments = (LoaderDTO[]) DepartmentTestDataLoader.load()
 
       departments.each { node ->
-        def map = (Map) node.object
-        def department = (Department) map.department
+        def syntheticId = node.object.organizationId
+        def department = (Department) node.object
+
+        if (useTestDataMap) {
+          organization = (Organization) testDataMapService.getDomain(Namespaces.ORGANIZATION, node.parentId)
+        }
 
         department.organization = organization
+        departmentService.save(department)
 
-        departmentService.create(department, map.user, map.address)
+        if (useTestDataMap) {
+          testDataMapService.save(Namespaces.DEPARTMENT, syntheticId, department.id)
+        }
       }
     }
   }
