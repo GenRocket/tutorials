@@ -13,7 +13,7 @@ class UserAddress implements Serializable {
     }
 
     other.user?.id == user?.id &&
-        other.address?.id == address?.id
+      other.address?.id == address?.id
   }
 
   int hashCode() {
@@ -25,7 +25,7 @@ class UserAddress implements Serializable {
 
   static UserAddress get(long addressId, long userId) {
     find 'from UserAddress where user.id=:userId and address.id=:addressId',
-        [userId: userId, addressId: addressId]
+      [userId: userId, addressId: addressId]
   }
 
   static List<User> getUsers(long addressId) {
