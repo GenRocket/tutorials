@@ -19,7 +19,7 @@ class RoleServiceIntegrationTests {
   @After
   public void tearDown() {}
 
-  void testCreateRole() {
+  void testSaveRole() {
     def roles = (LoaderDTO[]) RoleTestDataLoader.load()
     def node = roles[0]
     def role = ((Role) node.object)
@@ -29,7 +29,7 @@ class RoleServiceIntegrationTests {
     assertNotNull "Role should have an id but does not", role.id
   }
 
-  void testCreateRoleUniqueConstraint() {
+  void testSaveRoleUniqueConstraint() {
     def roles = (LoaderDTO[]) RoleTestDataLoader.load()
     def node = roles[1]
     def role1 = ((Role) node.object)
