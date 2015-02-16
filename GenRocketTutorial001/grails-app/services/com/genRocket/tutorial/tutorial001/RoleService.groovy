@@ -7,16 +7,6 @@ import grails.transaction.Transactional
 class RoleService {
 
   def create(Role role) {
-    def authority = role.authority
-
-    if (Role.findByAuthority(authority)) {
-      throw new Exception("Role, ${authority} already exists a may not be added twice.")
-    }
-
     role.save()
-
-    if (role.hasErrors()) {
-      throw new Exception("Unable to save role ${authority}. Please check that all required attributes are entered.")
-    }
   }
 }

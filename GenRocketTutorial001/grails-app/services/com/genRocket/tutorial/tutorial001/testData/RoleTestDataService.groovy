@@ -1,5 +1,6 @@
 package com.genRocket.tutorial.tutorial001.testData
 
+import com.genRocket.tutorial.tutorial001.Namespaces
 import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
@@ -10,6 +11,7 @@ class RoleTestDataService {
   static transactional = true
 
   def roleService
+  def testDataMapService
 
   def loadData() {
     println "Loading Roles..."
@@ -21,6 +23,7 @@ class RoleTestDataService {
         def role = (Role) node.object
 
         roleService.create(role)
+        testDataMapService.save(Namespaces.ROLE, node.id, role.id)
       }
     }
   }

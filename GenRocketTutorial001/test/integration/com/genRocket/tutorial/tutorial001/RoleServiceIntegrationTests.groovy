@@ -37,12 +37,10 @@ class RoleServiceIntegrationTests {
 
     roleService.create(role1)
 
-    try {
-      roleService.create(role2)
-      assertTrue "Service did not catch duplicate error.", false
-    } catch (e) {
-      def message = "Role, ${role2.authority} already exists a may not be added twice."
-      assertTrue message == e.getMessage()
-    }
+    assertNotNull "Role1 should have an id but does not", role1.id
+
+    roleService.create(role2)
+
+    assertTrue "Role2 should equal Role1 because it should have updated", role2.id == role1.id
   }
 }
