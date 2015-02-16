@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 @Transactional
 class RoleService {
 
-  def create(Role role) {
+  def save(Role role) {
     role.save()
   }
 }

@@ -24,7 +24,7 @@ class RoleServiceIntegrationTests {
     def node = roles[0]
     def role = ((Role) node.object)
 
-    roleService.create(role)
+    roleService.save(role)
 
     assertNotNull "Role should have an id but does not", role.id
   }
@@ -34,7 +34,7 @@ class RoleServiceIntegrationTests {
     def node = roles[1]
     def role1 = ((Role) node.object)
 
-    roleService.create(role1)
+    roleService.save(role1)
 
     assertNotNull "Role1 should have an id but does not", role1.id
 
@@ -42,7 +42,7 @@ class RoleServiceIntegrationTests {
     def role2 = ((Role) node.object)
     role2.authority = role1.authority
 
-    roleService.create(role2)
+    roleService.save(role2)
 
     assertTrue "Role2 should have errors", role2.hasErrors()
     assertNull "Role2 should not have an id", role2.id
