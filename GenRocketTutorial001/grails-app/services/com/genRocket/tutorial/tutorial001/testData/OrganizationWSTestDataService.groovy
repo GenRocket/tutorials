@@ -13,7 +13,7 @@ class OrganizationWSTestDataService {
   def organizationService
   def roleTestDataService
 
-  def load() {
+  def loadData() {
     println "Loading Organizations..."
 
     if (Organization.count() == 0) {
