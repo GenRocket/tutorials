@@ -9,9 +9,9 @@ import com.genRocket.tutorial.tutorial001.security.User
 /**
  * Created by htaylor on 1/15/15.
  */
-class OrganizationTestDataLoader extends TestDataLoaderBase {
-  static SCENARIO = "com.genRocket.Organizations.grs"
-  static SCENARIO_DOMAIN = 'com.genRocket.Organizations.Organization'
+class OrganizationWSTestDataLoader extends TestDataLoaderBase {
+  static SCENARIO = "com.genRocket.OrganizationWS.grs"
+  static SCENARIO_DOMAIN = 'com.genRocket.OrganizationWS.OrganizationWS'
 
   static load() {
     def organizations = runScenario(new ScenarioParams(SCENARIO, SCENARIO_DOMAIN))
