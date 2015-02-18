@@ -1,33 +1,50 @@
 package com.genRocket.tutorial.tutorial001.testData
 
-import grails.transaction.Transactional
 import com.genRocket.tutorial.tutorial001.Address
-import com.genRocket.tutorial.tutorial001.security.User
+import com.genRocket.tutorial.tutorial001.Namespaces
+import com.genRocket.tutorial.tutorial001.UserAddress
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.testDataLoader.UserTestDataLoader
+import com.genRocket.tutorial.tutorial001.security.User
+import com.genRocket.tutorial.tutorial001.testDataLoader.AddressTestDataLoader
+import grails.transaction.Transactional
 
 @Transactional
 class AddressTestDataService {
   static transactional = true
 
+  def testDataMapService
   def addressService
   def userTestDataService
 
-  def loadData(User user = null) {
-    println "Loading Addressses..."
-
-    if (!user) {
-      userTestDataService.loadData()
-      user = User.first()
-    }
+  def loadData(Boolean useTestDataMap, User user = null) {
+    println "Loading Addresses..."
 
     if (Address.count() == 0) {
-      def addresses = (LoaderDTO[]) UserTestDataLoader.load()
+      if (!user) {
+        userTestDataService.loadData(useTestDataMap)
+
+        if (!useTestDataMap) {
+          user = User.first()
+        }
+      }
+
+      def addresses = (LoaderDTO[]) AddressTestDataLoader.load()
 
       addresses.each { node ->
-        def map = (Map) node.object
+        def syntheticId = node.object.id
+        def address = (Address) node.object
 
-        addressService.create(user, map.address)
+        addressService.save(address)
+
+        if (useTestDataMap) {
+          user = (User) testDataMapService.getDomain(Namespaces.DEPARTMENT, node.parentId)
+        }
+
+        UserAddress.create(user, address)
+
+        if (useTestDataMap) {
+          testDataMapService.save(Namespaces.ADDRESS, syntheticId, address.id)
+        }
       }
     }
   }
