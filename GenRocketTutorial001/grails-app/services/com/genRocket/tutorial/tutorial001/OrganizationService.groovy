@@ -34,7 +34,7 @@ class OrganizationService {
           role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
           UserRole.create(user, role)
 
-          addressService.create(address)
+          addressService.save(address)
 
           if (!address.hasErrors()) {
             UserAddress.create(address, user, true)
