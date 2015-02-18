@@ -7,49 +7,30 @@ import grails.transaction.Transactional
 
 @Transactional
 class UserService {
-  def addressService
 
-  def create(Department department, User user, Address address) {
-    def organization = department.organization
+  def save(User user) {
+    if (!user.id) {
+      user.save()
 
-    if (!organization) {
-      throw new Exception("Department, ${department.name} must reference an organization.")
-    }
+      def role = Role.findByAuthority(RoleTypes.ROLE_USER.toString())
 
-    if (user.id) {
-      throw new Exception('User already exist and can only be moved from one department to another department.')
-    }
-
-    if (User.findByUsername(user.username)) {
-      throw new Exception('Username is not unique.')
-    }
-
-    user.organization = department.organization
-    user.save()
-
-    if (user.hasErrors()) {
-      throw new Exception('Unable to save user.  Please check that all required attributes are entered.')
-    }
-
-    addressService.create(user, address)
-
-    UserRole.create(user, Role.findByAuthority(RoleTypes.ROLE_USER.toString()), organization)
-    DepartmentUser.create(department, user)
-
-    def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
-
-    if (getUsersWithRole(department, role).size() == 0) {
-      UserRole.create(user, role, organization)
+      UserRole.create(user, role)
     }
   }
 
+  def update(User user) {
+    user.save()
+  }
+
   def move(User user, Department source, Department dest) {
-    def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
-    def count = getUsersWithRole(source, role).size()
+    def roleType = RoleTypes.ROLE_DEPT_ADMIN
+    def count = getUsersWithRole(source, roleType).size()
 
     if (count == 0) {
       def message = """
-        User ${user.username} cannot be moved because department ${source.name} has no other users with role ${RoleTypes.ROLE_DEPT_ADMIN.toString()}...
+        User ${user.username} cannot be moved because department ${source.name} has no other users with role ${
+        roleType.toString()
+      }...
       """
 
       throw new Exception(message)
@@ -59,28 +40,16 @@ class UserService {
     DepartmentUser.create(dest, user)
   }
 
-  def getUsersWithRole(Department department, Role role) {
+  def getUsersWithRole(Department department, RoleTypes roleType) {
     def users = DepartmentUser.findAllByDepartment(department).user
     def usersWithRole = []
 
     users.each { user ->
-      if (UserRole.findByUserAndRole(user, role)) {
+      if (user.hasRole(roleType)) {
         usersWithRole.add(user)
       }
     }
 
     return usersWithRole
   }
-
-//  def getUsers(Department department, Role role) {
-//    return User.withCriteria {
-//      authorities() {
-//        eq('authority': role.authority)
-//      }
-//
-//      departments() {
-//        eq('id': department.id)
-//      }
-//    }
-//  }
 }

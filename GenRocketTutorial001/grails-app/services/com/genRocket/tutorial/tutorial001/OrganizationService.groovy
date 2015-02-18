@@ -23,7 +23,7 @@ class OrganizationService {
       departmentService.save(department)
 
       if (!department.hasErrors()) {
-        userService.create(user)
+        userService.save(user)
 
         if (!user.hasErrors()) {
           DepartmentUser.create(department, user)

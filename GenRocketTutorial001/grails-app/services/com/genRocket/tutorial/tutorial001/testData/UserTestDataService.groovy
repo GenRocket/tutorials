@@ -33,7 +33,7 @@ class UserTestDataService {
       users.each { node ->
         def user = (User) node.object
 
-        userService.create(user)
+        userService.save(user)
 
         if (useTestDataMap) {
           department = (Department) testDataMapService.getDomain(Namespaces.DEPARTMENT, node.parentId)

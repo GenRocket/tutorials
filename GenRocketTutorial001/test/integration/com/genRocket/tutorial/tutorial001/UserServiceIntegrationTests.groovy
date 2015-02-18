@@ -1,68 +1,52 @@
 package com.genRocket.tutorial.tutorial001
 
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
-import com.genRocket.tutorial.tutorial001.security.Role
 import com.genRocket.tutorial.tutorial001.security.User
-import com.genRocket.tutorial.tutorial001.security.UserRole
 import com.genRocket.tutorial.tutorial001.testDataLoader.UserTestDataLoader
+import grails.test.mixin.TestMixin
 import grails.test.mixin.integration.IntegrationTestMixin
 import org.junit.After
 import org.junit.Before
-import grails.test.mixin.TestMixin
+
 import static org.junit.Assert.*
 
 @TestMixin(IntegrationTestMixin)
 class UserServiceIntegrationTests {
   def userService
-  def departmentTestDataService
 
   @Before
-  public void setUp() {
-    departmentTestDataService.loadData()
-  }
+  public void setUp() {}
 
   @After
   public void tearDown() {}
 
-  void testCreate() {
-    def users = (LoaderDTO[]) UserTestDataLoader.load()
-    def node = users[0]
-    def user = ((User) node.object.user)
-    def address = ((Address) node.object.address)
-    def department = Department.first()
 
-    userService.create(department, user, address)
+  void testSaveUser() {
+    def roles = (LoaderDTO[]) UserTestDataLoader.load()
+    def node = roles[0]
+    def role = ((User) node.object)
 
-    assertNotNull "user.id should not be null", user.id
-    assertNotNull "address.id should not be null", address.id
-    assertNotNull "User should have an address", UserAddress.findByUserAndAddress(user, address)
+    userService.save(role)
 
-    def role = Role.findByAuthority(RoleTypes.ROLE_DEPT_ADMIN.toString())
-    assertNull "User should not be assigned a role of ${role.authority}", UserRole.findByUserAndRole(user, role)
-
-    role = Role.findByAuthority(RoleTypes.ROLE_USER.toString())
-    assertNotNull "User should have a role of ${role.authority}", UserRole.findByUserAndRole(user, role)
+    assertNotNull "User should have an id but does not", role.id
   }
 
-  void testMove() {
-    departmentTestDataService.loadData()
+  void testSaveUserUniqueConstraint() {
+    def roles = (LoaderDTO[]) UserTestDataLoader.load()
+    def node = roles[1]
+    def role1 = ((User) node.object)
 
-    def users = (LoaderDTO[]) UserTestDataLoader.load()
-    def node = users[0]
-    def user = ((User) node.object.user)
-    def address = ((Address) node.object.address)
+    userService.save(role1)
 
-    def departments = Department.list()
-    def sourceDept = departments[0]
-    def destDept = departments[1]
+    assertNotNull "User1 should have an id but does not", role1.id
 
-    userService.create(sourceDept, user, address)
-    userService.move(user, sourceDept, destDept)
+    node = roles[2]
+    def role2 = ((User) node.object)
+    role2.username = role1.username
 
-    def departmentUser = DepartmentUser.findByDepartmentAndUser(sourceDept, user)
-    assertNull "User should no longer belong to department, ${sourceDept.name}", departmentUser
+    userService.save(role2)
 
-    departmentUser = DepartmentUser.findByDepartmentAndUser(destDept, user)
-    assertNotNull "User should now belong to department, ${destDept.name}", departmentUser
+    assertTrue "User2 should have errors", role2.hasErrors()
+    assertNull "User2 should not have an id", role2.id
   }
 }
