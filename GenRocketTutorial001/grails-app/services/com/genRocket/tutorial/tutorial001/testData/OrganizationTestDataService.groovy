@@ -13,7 +13,7 @@ class OrganizationTestDataService {
   def testDataMapService
   def organizationService
 
-  def loadData(Boolean useTestDataMap = null) {
+  def loadData(Boolean useTestDataMap = false) {
     println "Loading Organizations..."
 
     if (Organization.count() == 0) {
