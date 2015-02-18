@@ -33,11 +33,11 @@ class UserAddress implements Serializable {
     addressUsers.collect { it.user }
   }
 
-  static UserAddress create(Address address, User user, boolean flush = false) {
+  static UserAddress create(User user, Address address, boolean flush = false) {
     new UserAddress(user: user, address: address).save(flush: flush, insert: true)
   }
 
-  static boolean remove(Address address, User user, boolean flush = false) {
+  static boolean remove(User user, Address address, boolean flush = false) {
     UserAddress instance = UserAddress.findByUserAndAddress(user, address)
     if (!instance) {
       return false

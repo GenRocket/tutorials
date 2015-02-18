@@ -15,22 +15,25 @@ class AddressServiceIntegrationTests {
   def userTestDataService
 
   @Before
-  public void setUp() {
-    userTestDataService.loadData()
-  }
+  public void setUp() {}
 
   @After
   public void tearDown() {}
 
   void testCreateDepartment() {
+    userTestDataService.loadData()
+
     def addresses = (LoaderDTO[]) AddressTestDataLoader.load()
     def node = addresses[0]
     def address = ((Address) node.object)
     def user = User.first()
 
-    addressService.create(user, address)
+    addressService.save(address)
 
     assertNotNull "address.id should not be null", address.id
+
+    UserAddress.create(user, address, true)
+
     assertNotNull "User should have an address", UserAddress.findByUserAndAddress(user, address)
   }
 }
