@@ -37,7 +37,7 @@ class OrganizationService {
           addressService.save(address)
 
           if (!address.hasErrors()) {
-            UserAddress.create(address, user, true)
+            UserAddress.create(user, address, true)
           }
         }
       }
