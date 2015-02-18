@@ -16,11 +16,11 @@ class UserTestDataService {
   def testDataMapService
   def departmentTestDataService
 
-  def loadData(Department department = null, Boolean useTestDataMap) {
+  def loadData(Boolean useTestDataMap = false, Department department = null) {
     println "Loading Users..."
 
     if (!department) {
-      departmentTestDataService.loadData()
+      departmentTestDataService.loadData(useTestDataMap)
 
       if (!useTestDataMap) {
         department = Department.first()
@@ -37,8 +37,9 @@ class UserTestDataService {
 
         if (useTestDataMap) {
           department = (Department) testDataMapService.getDomain(Namespaces.DEPARTMENT, node.parentId)
-          DepartmentUser.create(department, user)
         }
+
+        DepartmentUser.create(department, user)
       }
     }
   }
