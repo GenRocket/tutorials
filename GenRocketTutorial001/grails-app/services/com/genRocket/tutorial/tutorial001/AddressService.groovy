@@ -5,7 +5,7 @@ import grails.transaction.Transactional
 @Transactional
 class AddressService {
 
-  def create(Address address) {
+  def save(Address address) {
     address.save()
   }
 
