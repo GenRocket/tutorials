@@ -15,13 +15,13 @@ class DepartmentTestDataService {
   def testDataMapService
   def organizationTestDataService
 
-  def loadData(Boolean useTestDataMap, Organization organization = null) {
+  def loadData(Boolean useTestDataMap = false, Organization organization = null) {
     println "Loading Departments..."
 
     if (Department.count() == 0) {
 
       if (!organization) {
-        organizationTestDataService.loadData()
+        organizationTestDataService.loadData(useTestDataMap)
 
         if (!useTestDataMap) {
           organization = Organization.first()
@@ -31,7 +31,7 @@ class DepartmentTestDataService {
       def departments = (LoaderDTO[]) DepartmentTestDataLoader.load()
 
       departments.each { node ->
-        def syntheticId = node.object.organizationId
+        def syntheticId = node.object.id
         def department = (Department) node.object
 
         if (useTestDataMap) {
