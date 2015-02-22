@@ -1,6 +1,5 @@
 package com.genRocket.tutorial.tutorial001.testDataLoader
 
-import com.genRocket.tutorial.tutorial001.Address
 import com.genRocket.tutorial.tutorial001.dto.LoaderDTO
 import com.genRocket.tutorial.tutorial001.security.User
 
