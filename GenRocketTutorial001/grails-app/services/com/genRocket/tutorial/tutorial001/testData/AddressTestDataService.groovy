@@ -37,7 +37,7 @@ class AddressTestDataService {
         addressService.save(address)
 
         if (useTestDataMap) {
-          user = (User) testDataMapService.getDomain(Namespaces.DEPARTMENT, node.parentId)
+          user = (User) testDataMapService.getDomain(Namespaces.USER, node.parentId)
         }
 
         UserAddress.create(user, address)
