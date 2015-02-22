@@ -12,14 +12,16 @@ class UserTestDataLoader extends TestDataLoaderBase {
   static SCENARIO_DOMAIN = 'com.genRocket.User.User'
 
   static load() {
-    def organizations = runScenario(new ScenarioParams(SCENARIO, SCENARIO_DOMAIN))
+    def users = runScenario(new ScenarioParams(SCENARIO, SCENARIO_DOMAIN))
     def testData = []
 
-    organizations.each { node ->
+    users.each { node ->
       def dto = new LoaderDTO()
+      def parentId = Long.parseLong(node.departmentId)
       def user = new User(node)
 
       dto.object = user
+      dto.parentId = parentId
       testData.add(dto)
     }
 
