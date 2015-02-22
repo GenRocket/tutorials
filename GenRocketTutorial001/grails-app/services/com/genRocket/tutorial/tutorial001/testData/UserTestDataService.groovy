@@ -36,6 +36,8 @@ class UserTestDataService {
         userService.save(user)
 
         if (useTestDataMap) {
+          testDataMapService.save(Namespaces.USER, syntheticId, user.id)
+
           department = (Department) testDataMapService.getDomain(Namespaces.DEPARTMENT, node.parentId)
         }
 
