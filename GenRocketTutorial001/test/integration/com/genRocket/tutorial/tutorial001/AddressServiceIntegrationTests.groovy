@@ -28,12 +28,9 @@ class AddressServiceIntegrationTests {
     def address = ((Address) node.object)
     def user = User.first()
 
-    addressService.save(address)
+    addressService.save(user, address)
 
     assertNotNull "address.id should not be null", address.id
-
-    UserAddress.create(user, address, true)
-
     assertNotNull "User should have an address", UserAddress.findByUserAndAddress(user, address)
   }
 }
