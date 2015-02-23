@@ -26,8 +26,6 @@ class UserTestDataService {
     if (User.count() == 0) {
       if (!role) {
         roleTestDataService.loadData(useTestDataMap)
-
-        role = Role.findByAuthority(RoleTypes.ROLE_USER.toString())
       }
 
       if (!department) {
@@ -51,7 +49,6 @@ class UserTestDataService {
           department = (Department) testDataMapService.getDomain(Namespaces.DEPARTMENT, node.parentId)
         }
 
-        UserRole.create(user, role)
         DepartmentUser.create(department, user)
       }
     }
